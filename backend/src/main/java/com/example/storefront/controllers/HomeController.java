@@ -3,21 +3,21 @@ package com.example.storefront.controllers;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.storefront.entities.Product;
-import com.example.storefront.repositories.ProductRepository;
+import com.example.storefront.dto.ProductDetailResponse;
+import com.example.storefront.services.ProductService;
 
 @RestController("/")
 public class HomeController {
 
-    private ProductRepository productRepository;
+    private ProductService productService;
 
-    HomeController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
+    HomeController(ProductService productService) {
+        this.productService = productService;
     }
 
     @GetMapping("/")
-    public Iterable<Product> home() {
+    public Iterable<ProductDetailResponse> home() {
         // return List.of("JavaScript", "Ruby");
-        return this.productRepository.findAll();
+        return this.productService.getAllProductDetails();
     }
 }
