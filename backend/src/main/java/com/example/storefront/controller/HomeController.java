@@ -1,21 +1,23 @@
-package com.example.storefront.controllers;
+package com.example.storefront.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storefront.dto.ProductDetailResponse;
-import com.example.storefront.services.ProductService;
+import com.example.storefront.service.ProductService;
 
-@RestController("/")
+@RestController
+@RequestMapping("/")
 public class HomeController {
 
-    private ProductService productService;
+    private final ProductService productService;
 
-    HomeController(ProductService productService) {
+    public HomeController(ProductService productService) {
         this.productService = productService;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Iterable<ProductDetailResponse> home() {
         // return List.of("JavaScript", "Ruby");
         return this.productService.getAllProductDetails();

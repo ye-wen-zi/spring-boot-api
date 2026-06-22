@@ -1,5 +1,6 @@
-package com.example.storefront.entities;
+package com.example.storefront.entity;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,7 +35,7 @@ public class ProductVariant {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private double price;
+    private BigDecimal price;
 
     private int quantity;
 

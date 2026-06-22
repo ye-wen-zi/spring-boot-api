@@ -1,4 +1,4 @@
-package com.example.storefront.exceptions;
+package com.example.storefront.exception;
 
 import org.springframework.http.HttpStatus;
 
@@ -9,7 +9,7 @@ public class ResourceNotFoundException extends RuntimeException {
     @Getter()
     private final HttpStatus status;
 
-    ResourceNotFoundException(String message) {
+    public ResourceNotFoundException(String message) {
         super(message);
         this.status = HttpStatus.NOT_FOUND;
     }

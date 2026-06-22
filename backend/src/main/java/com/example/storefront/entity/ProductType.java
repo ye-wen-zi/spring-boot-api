@@ -1,9 +1,8 @@
-package com.example.storefront.entities;
+package com.example.storefront.entity;
 
 import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,24 +17,28 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "attributes")
-@Getter
+@Table(name = "product_types")
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Attribute {
-
+public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
-    private String name; // color,size
+    private String name;
 
-    @Column(nullable = false, unique = true)
-    private String slug;
+    @Builder.Default
+    @Column(nullable = false)
+    private boolean hasVariants = true;
 
-    @OneToMany(mappedBy = "attribute", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AttributeValue> values;
+    @Builder.Default
+    @Column(nullable = false)
+    private boolean isShippingRequired = true;
+
+    @OneToMany(mappedBy = "productType")
+    private List<Product> products;
 }

@@ -1,0 +1,492 @@
+[
+    {
+        "name": "Áo Thun Nam Cotton Cổ Tròn Basic",
+        "description": "Áo thun nam chất liệu 100% cotton co giãn 4 chiều, thấm hút mồ hôi tốt, form dáng basic dễ phối đồ.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.8,
+        "thumbnail": "https://example.com/ao-thun-basic.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 180000,
+                "quantity": 50,
+                "sku": "TSHIRT-BSC-BLK-M",
+                "name": "Áo Thun Basic - Đen - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 180000,
+                "quantity": 45,
+                "sku": "TSHIRT-BSC-WHT-L",
+                "name": "Áo Thun Basic - Trắng - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Nam Thể Thao Dri-Fit",
+        "description": "Chất vải thể thao chuyên dụng, thoáng khí, nhanh khô, phù hợp cho các hoạt động vận động mạnh.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.7,
+        "thumbnail": "https://example.com/ao-thun-the-thao.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 220000,
+                "quantity": 30,
+                "sku": "TSHIRT-SPT-BLU-L",
+                "name": "Áo Thể Thao - Xanh Dương - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 220000,
+                "quantity": 25,
+                "sku": "TSHIRT-SPT-GRY-XL",
+                "name": "Áo Thể Thao - Xám - XL",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Polo Nam Cổ Bẻ Lịch Lãm",
+        "description": "Áo polo nam chất cá sấu co giãn, cổ bẻ thanh lịch, bo tay chỉn chu, phù hợp đi làm và đi chơi.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.6,
+        "thumbnail": "https://example.com/ao-polo-nam.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 290000,
+                "quantity": 40,
+                "sku": "POLO-NVY-M",
+                "name": "Áo Polo - Xanh Đen - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 290000,
+                "quantity": 35,
+                "sku": "POLO-WHT-L",
+                "name": "Áo Polo - Trắng - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Nam Oversize Phong Cách Đường Phố",
+        "description": "Thiết kế form rộng tay lỡ cá tính, chất liệu vải dày dặn định hình form tốt, hình in sắc nét.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.9,
+        "thumbnail": "https://example.com/ao-thun-oversize.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 250000,
+                "quantity": 60,
+                "sku": "OVR-BLK-L",
+                "name": "Áo Oversize - Đen - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 250000,
+                "quantity": 55,
+                "sku": "OVR-YEL-XL",
+                "name": "Áo Oversize - Vàng - XL",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Nam Cổ Tim Hàn Quốc",
+        "description": "Áo thun nam cổ tim nhẹ nhàng, tinh tế, chất thun mềm mịn tôn dáng người mặc.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.4,
+        "thumbnail": "https://example.com/ao-thun-co-tim.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 195000,
+                "quantity": 20,
+                "sku": "VNECK-GRY-S",
+                "name": "Áo Cổ Tim - Xám - S",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 195000,
+                "quantity": 22,
+                "sku": "VNECK-WHT-M",
+                "name": "Áo Cổ Tim - Trắng - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Nam Tay Dài Thu Đông",
+        "description": "Áo thun dài tay vải tăm dày dặn vừa phải, giữ ấm nhẹ cho những ngày thời tiết se lạnh.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.5,
+        "thumbnail": "https://example.com/ao-thun-tay-dai.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 240000,
+                "quantity": 15,
+                "sku": "LST-BRN-M",
+                "name": "Áo Tay Dài - Nâu - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 240000,
+                "quantity": 18,
+                "sku": "LST-BLK-L",
+                "name": "Áo Tay Dài - Đen - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Nam Họa Tiết Camo Cá Tính",
+        "description": "Họa tiết rằn ri quân đội độc đáo, chất vải bền bỉ, mang lại vẻ ngoài nam tính, bụi bặm.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.6,
+        "thumbnail": "https://example.com/ao-thun-camo.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 210000,
+                "quantity": 28,
+                "sku": "CAMO-GRN-L",
+                "name": "Áo Camo - Xanh Lính - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 210000,
+                "quantity": 14,
+                "sku": "CAMO-GRY-XL",
+                "name": "Áo Camo - Xám Rằn Ri - XL",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Tank Top Nam Sát Nách",
+        "description": "Áo ba lỗ sát nách nam, khoét nách vừa phải, lý tưởng cho việc tập gym hoặc mặc ở nhà.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.7,
+        "thumbnail": "https://example.com/ao-tanktop.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 150000,
+                "quantity": 70,
+                "sku": "TANK-BLK-M",
+                "name": "Áo Tank Top - Đen - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 150000,
+                "quantity": 65,
+                "sku": "TANK-WHT-L",
+                "name": "Áo Tank Top - Trắng - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Nam Sọc Ngang Retro",
+        "description": "Họa tiết sọc kẻ ngang cổ điển, không bao giờ lỗi mốt, dễ phối với quần short hoặc jeans.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.5,
+        "thumbnail": "https://example.com/ao-thun-soc-ngang.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 195000,
+                "quantity": 33,
+                "sku": "STRIPE-NVY-M",
+                "name": "Áo Sọc Ngang - Sọc Xanh - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 195000,
+                "quantity": 40,
+                "sku": "STRIPE-RED-L",
+                "name": "Áo Sọc Ngang - Sọc Đỏ - L",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Áo Thun Henly Nam Nút Cổ Độc Đáo",
+        "description": "Sự kết hợp giữa cổ tròn basic và hàng nút của áo polo tạo nên nét phá cách vừa bụi bặm vừa lịch sự.",
+        "typeId": "020bf8ed-ec0e-4935-b874-20a690dcee75",
+        "categoryId": "e57ed152-c8cc-49f8-83d6-aeba99e64813",
+        "rating": 4.6,
+        "thumbnail": "https://example.com/ao-thun-henley.jpg",
+        "currency": "VND",
+        "variants": [
+            {
+                "price": 230000,
+                "quantity": 25,
+                "sku": "HENLEY-KHK-M",
+                "name": "Áo Henley - Rêu - M",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            },
+            {
+                "price": 230000,
+                "quantity": 19,
+                "sku": "HENLEY-BLK-XL",
+                "name": "Áo Henley - Đen - XL",
+                "trackInventory": true,
+                "attributes": [
+                    {
+                        "attributeId": "75707b78-8285-4c27-be14-1165360014d3",
+                        "attributeValueId": "89ef719d-9835-43d1-9328-2a23c3391d3b",
+                        "value": "Đen"
+                    },
+                    {
+                        "attributeId": "d5d9d3f5-3e60-42e8-abf2-f4ac88598edb",
+                        "attributeValueId": "698b8040-4450-421b-a357-f88ddc93179e",
+                        "value": "M"
+                    }
+                ]
+            }
+        ]
+    }
+]

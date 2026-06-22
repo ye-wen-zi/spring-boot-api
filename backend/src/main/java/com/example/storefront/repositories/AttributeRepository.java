@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.storefront.entities.Attribute;
+import com.example.storefront.entity.Attribute;
 
 public interface AttributeRepository extends JpaRepository<Attribute, UUID> {
 

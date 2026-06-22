@@ -1,10 +1,7 @@
-package com.example.storefront.entities;
+package com.example.storefront.entity;
 
 import java.util.List;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,14 +21,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "products")
+@Table(name = "categories")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Product {
-    @Id()
+public class Category {
+
+    @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
@@ -41,23 +39,15 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    @Column(columnDefinition = "TEXT")
-    private String description;
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_type_id", nullable = false)
-    @JsonIgnore
-    private ProductType productType;
+    @JoinColumn(name = "parent_id")
+    private Category parent;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    @JsonIgnore
-    private Category category;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    // @JsonIgnore
+    private List<Category> children;
 
-    private Double rating;
-
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<ProductVariant> variants;
-
+    @OneToMany(mappedBy = "category")
+    // @JsonBackReference
+    private List<Product> products;
 }

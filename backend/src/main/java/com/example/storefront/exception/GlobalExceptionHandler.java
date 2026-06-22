@@ -1,4 +1,4 @@
-package com.example.storefront.exceptions;
+package com.example.storefront.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +10,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorDetails> handleResourceNotfound(ResourceNotFoundException ex) {
+        ErrorDetails errorDetails = new ErrorDetails(
+                ex.getStatus().value(),
+                ex.getStatus().getReasonPhrase(),
+                ex.getMessage());
+
+        return new ResponseEntity<>(errorDetails, ex.getStatus());
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ErrorDetails> handleBadRequest(BadRequestException ex) {
         ErrorDetails errorDetails = new ErrorDetails(
                 ex.getStatus().value(),
                 ex.getStatus().getReasonPhrase(),

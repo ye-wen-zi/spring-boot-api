@@ -1,0 +1,54 @@
+###
+POST http://localhost:8080/products
+content-type: application/json
+
+
+{
+  "name": "Laptop Gaming ASUS ROG",
+  "description": "Laptop mạnh mẽ dành cho game thủ",
+  "typeId": "0a97bc43-eea7-4952-9ac1-60c97b8c9580",
+  "categoryId": "bcba589c-2929-4c71-bd8e-4e25a6bed71f",
+  "rating": 4.5,
+  "thumbnail": "https://example.com/image.jpg",
+  "currency": "VND",
+  "variants": [
+    {
+      "price": 25000000,
+      "quantity": 10,
+      "sku": "ASUS-ROG-001",
+      "name": "Bản 16GB RAM / 512GB SSD",
+      "trackInventory": true,
+      "attributes": [
+        {
+          "attributeId": "e1f4e94f-1a4c-47fd-a883-4ec5f4f8e7a5",
+          "attributeValueId": "6de6a401-3adb-4206-b334-ffe21782a5da",
+          "value": "Black"
+        },
+        {
+          "attributeId": "76c71406-0e6e-4b6c-a218-ce5645bf8d5d",
+          "attributeValueId": "2fcc04c8-6eab-4b8f-a50b-b6bdac09458b",
+          "value": "M"
+        }
+      ]
+    },
+    {
+      "price": 30000000,
+      "quantity": 5,
+      "sku": "ASUS-ROG-002",
+      "name": "Bản 32GB RAM / 1TB SSD",
+      "trackInventory": true,
+      "attributes": [
+        {
+          "attributeId": "e1f4e94f-1a4c-47fd-a883-4ec5f4f8e7a5",
+          "attributeValueId": null,
+          "value": "Xanh"
+        },
+        {
+          "attributeId": "76c71406-0e6e-4b6c-a218-ce5645bf8d5d",
+          "attributeValueId": null,
+          "value": "S"
+        }
+      ]
+    }
+  ]
+}

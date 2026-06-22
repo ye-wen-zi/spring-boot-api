@@ -1,16 +1,18 @@
-package com.example.storefront.entities;
+package com.example.storefront.entity;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -20,26 +22,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "attribute_values")
+@Table(name = "assigned_variant_attributes")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AttributeValue {
+public class AssignedVariantAttribute {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "variant_id", nullable = false)
+    @JsonIgnore
+    private ProductVariant variant;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attribute_id", nullable = false)
     @JsonIgnore
     private Attribute attribute;
 
-    @Column(nullable = false)
-    private String name; // Red,XL
-
-    @Column(nullable = false)
-    private String slug;
+    @ManyToMany
+    @JoinTable(name = "assigned_variant_attribute_values", joinColumns = @JoinColumn(name = "assigned_variant_attribute_id"), inverseJoinColumns = @JoinColumn(name = "attribute_value_id"))
+    private List<AttributeValue> selectedValues;
 }
