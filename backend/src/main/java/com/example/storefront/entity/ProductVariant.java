@@ -44,7 +44,8 @@ public class ProductVariant {
     @JsonBackReference
     private Product product;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false /** , unique = true */
+    )
     private String sku;
 
     private String name; // "M / Red"

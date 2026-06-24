@@ -2,7 +2,6 @@ package com.example.storefront.entity;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -33,13 +32,13 @@ import lombok.Setter;
 @Builder
 public class Product {
     @Id()
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String slug;
 
     @Column(columnDefinition = "TEXT")

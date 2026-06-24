@@ -3,10 +3,8 @@ package com.example.storefront.config;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 
 import com.example.storefront.entity.AssignedVariantAttribute;
 import com.example.storefront.entity.Attribute;
@@ -116,20 +114,21 @@ public class _DataInitializer implements CommandLineRunner {
 
                 AssignedVariantAttribute blackForVariantM = AssignedVariantAttribute.builder()
                                 .attribute(colorAttribute)
-                                .selectedValues(List.of(blackAttribute))
+                                // .selectedValues(List.of(blackAttribute))
+                                .value(blackAttribute)
                                 .build();
                 AssignedVariantAttribute mediumForVariantM = AssignedVariantAttribute.builder()
                                 .attribute(sizeAttribute)
-                                .selectedValues(List.of(mediumAttribute))
+                                .value(mediumAttribute)
                                 .build();
 
                 AssignedVariantAttribute whiteForVariantL = AssignedVariantAttribute.builder()
                                 .attribute(colorAttribute)
-                                .selectedValues(List.of(whiteAttribute))
+                                .value(whiteAttribute)
                                 .build();
                 AssignedVariantAttribute largeForVariantL = AssignedVariantAttribute.builder()
                                 .attribute(sizeAttribute)
-                                .selectedValues(List.of(largeAttribute))
+                                .value(largeAttribute)
                                 .build();
 
                 // AssignedVariantAttribute sizeAssignedVariantAttributes =

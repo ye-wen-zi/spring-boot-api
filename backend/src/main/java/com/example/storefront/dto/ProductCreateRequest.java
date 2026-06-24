@@ -26,8 +26,9 @@ public record ProductCreateRequest(
             List<Attribute> attributes) {
         public record Attribute(
                 UUID attributeId,
-                UUID attributeValueId,
-                String value) {
+                UUID attributeValueId
+        // String value
+        ) {
         }
     }
 }

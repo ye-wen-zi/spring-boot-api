@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.transaction.Transactional;
 
-@Component
+// @Component
 public class DataInitializer implements CommandLineRunner {
 
         private final ProductRepository productRepository;

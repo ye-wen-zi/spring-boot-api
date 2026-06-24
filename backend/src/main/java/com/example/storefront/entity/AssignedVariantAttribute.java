@@ -1,6 +1,5 @@
 package com.example.storefront.entity;
 
-import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -11,8 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -41,10 +38,15 @@ public class AssignedVariantAttribute {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attribute_id", nullable = false)
-    @JsonIgnore
     private Attribute attribute;
 
-    @ManyToMany
-    @JoinTable(name = "assigned_variant_attribute_values", joinColumns = @JoinColumn(name = "assigned_variant_attribute_id"), inverseJoinColumns = @JoinColumn(name = "attribute_value_id"))
-    private List<AttributeValue> selectedValues;
+    // @ManyToMany
+    // @JoinTable(name = "assigned_variant_attribute_values", joinColumns =
+    // @JoinColumn(name = "assigned_variant_attribute_id"), inverseJoinColumns =
+    // @JoinColumn(name = "attribute_value_id"))
+    // private List<AttributeValue> selectedValues;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "attribute_value_id", nullable = false)
+    private AttributeValue value;
 }

@@ -5,11 +5,13 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
+import com.example.storefront.dto.ProductUpdateRequest;
 import com.example.storefront.entity.AssignedVariantAttribute;
 import com.example.storefront.entity.Category;
 import com.example.storefront.entity.Product;
@@ -21,12 +23,12 @@ public interface ProductMapper {
     @Mapping(target = "categoryName", source = "category.name")
     @Mapping(target = "productTypeName", source = "productType.name")
     @Mapping(target = "variants", source = "variants")
-    ProductDetailResponse toDetailResponse(Product product);
+    ProductDetailResponse fromEntityToDetailResponse(Product product);
 
-    List<ProductDetailResponse> toDetailResponseList(List<Product> products);
+    List<ProductDetailResponse> fromEntityListToDetailResponseList(List<Product> products);
 
     @Mapping(target = "attributes", source = "assignedAttributes", qualifiedByName = "mapAssignedAttributes")
-    ProductDetailResponse.VariantResponse toVariantResponse(ProductVariant variant);
+    ProductDetailResponse.VariantResponse fromVariantToVariantResponse(ProductVariant variant);
 
     @Named("mapAssignedAttributes")
     default List<ProductDetailResponse.AttributeValueResponse> mapAssignedAttributes(
@@ -40,22 +42,18 @@ public interface ProductMapper {
         for (AssignedVariantAttribute assigned : assignedAttributes) {
             String attrName = assigned.getAttribute().getName();
 
-            if (assigned.getSelectedValues() != null) {
-                for (var value : assigned.getSelectedValues()) {
-                    result.add(new ProductDetailResponse.AttributeValueResponse(attrName, value.getName()));
-                }
-            }
+            result.add(new ProductDetailResponse.AttributeValueResponse(attrName, assigned.getValue().getName()));
         }
         return result;
     }
 
     // PRODUCT RESPONSE
     @Mapping(target = "category", source = "category")
-    ProductResponse toResponse(Product product);
+    ProductResponse fromEntityToResponse(Product product);
 
     ProductResponse.Category toCategoryResponse(Category category);
 
-    List<ProductResponse> toResponseList(List<Product> products);
+    List<ProductResponse> fromEntitiesToResponses(List<Product> products);
 
     // // CREATE PRODUCT
 
@@ -65,14 +63,14 @@ public interface ProductMapper {
     @Mapping(target = "slug", ignore = true)
     @Mapping(target = "minPrice", ignore = true)
     @Mapping(target = "maxPrice", ignore = true)
-    Product toEntity(ProductCreateRequest dto);
+    Product fromCreateRequestToEntity(ProductCreateRequest dto);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "product", ignore = true)
     @Mapping(target = "assignedAttributes", ignore = true)
-    ProductVariant toVariantEntity(ProductCreateRequest.Variant variant);
+    ProductVariant fromUpdateVariantToVariantEntity(ProductCreateRequest.Variant variant);
 
-    List<Product> toEntities(List<ProductCreateRequest> dto);
+    List<Product> fromCreateRequestsToEntities(List<ProductCreateRequest> dto);
 
     // default List<AssignedVariantAttribute> mapCreateAssignedAttributes(
     // List<ProductCreateRequest.Variant.Attribute> attributes) {
@@ -85,10 +83,24 @@ public interface ProductMapper {
     // Attribute attribute = Attribute.builder().
     // }
     // }
+
+    // UPDATE PRODUCT
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "category", ignore = true)
+    @Mapping(target = "productType", ignore = true)
+    @Mapping(target = "slug", ignore = true)
+    @Mapping(target = "minPrice", ignore = true)
+    @Mapping(target = "maxPrice", ignore = true)
+    @Mapping(target = "variants", ignore = true)
+    Product fromUpdateRequestToEntity(ProductUpdateRequest dto, @MappingTarget Product product);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "product", ignore = true)
+    @Mapping(target = "assignedAttributes", ignore = true)
+    ProductVariant fromUpdateVariantToVariantEntity(ProductUpdateRequest.Variant variantDto,
+            @MappingTarget ProductVariant productVariant);
 }
 
 // Tránh vòng lặp vô tận: Nếu Product có Category, và Category lại có
-// List<Product>,
-// bạn sẽ bị lỗi StackOverflowError khi map.
-// Hãy cẩn thận cấu trúc dữ liệu của bạn hoặc sử dụng @Mapping(target =
+// List<Product>, => StackOverflowError khi map => @Mapping(target =
 // "products", ignore = true) để ngắt vòng lặp.

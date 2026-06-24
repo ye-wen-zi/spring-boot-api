@@ -1,5 +1,8 @@
 ###
-POST http://localhost:8080/products
+GET  http://localhost:8080/api/v1/products
+
+###
+POST http://localhost:8080/api/v1/products
 content-type: application/json
 
 
@@ -22,12 +25,10 @@ content-type: application/json
         {
           "attributeId": "e1f4e94f-1a4c-47fd-a883-4ec5f4f8e7a5",
           "attributeValueId": "6de6a401-3adb-4206-b334-ffe21782a5da",
-          "value": "Black"
         },
         {
           "attributeId": "76c71406-0e6e-4b6c-a218-ce5645bf8d5d",
           "attributeValueId": "2fcc04c8-6eab-4b8f-a50b-b6bdac09458b",
-          "value": "M"
         }
       ]
     },
@@ -41,12 +42,10 @@ content-type: application/json
         {
           "attributeId": "e1f4e94f-1a4c-47fd-a883-4ec5f4f8e7a5",
           "attributeValueId": null,
-          "value": "Xanh"
         },
         {
           "attributeId": "76c71406-0e6e-4b6c-a218-ce5645bf8d5d",
           "attributeValueId": null,
-          "value": "S"
         }
       ]
     }

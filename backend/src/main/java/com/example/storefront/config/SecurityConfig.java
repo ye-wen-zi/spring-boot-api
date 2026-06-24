@@ -3,7 +3,6 @@ package com.example.storefront.config;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -35,7 +34,9 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 // .csrf(csrf -> csrf.disable())
                 // Tắt CSRF bảo vệ riêng cho H2 Console để có thể submit form đăng nhập h2
-                .csrf(csrf -> csrf.ignoringRequestMatchers(PathRequest.toH2Console()))
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(PathRequest.toH2Console())
+                        .disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exceprions -> exceprions
                         .authenticationEntryPoint((req, res, ex) -> {
@@ -46,7 +47,8 @@ public class SecurityConfig {
                         // Cho phép truy cập vào H2 Console mà không cần đăng nhập
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
                         .requestMatchers("/api/public/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products").permitAll()
+                        // .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
+                        .requestMatchers("/api/v1/products/**").permitAll()
                         .anyRequest().authenticated())
                 // Cho phép hiển thị giao diện H2 bên trong thẻ <iframe>
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))

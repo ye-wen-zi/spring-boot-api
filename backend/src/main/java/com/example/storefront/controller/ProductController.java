@@ -1,7 +1,6 @@
 package com.example.storefront.controller;
 
 import java.net.URI;
-import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,7 +35,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    ProductDetailResponse findById(@PathVariable UUID id) {
+    ProductDetailResponse findById(@PathVariable Long id) {
         return this.productService.findProductById(id);
     }
 
@@ -54,14 +53,14 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDetailResponse> updateProduct(
-            @PathVariable UUID id,
+            @PathVariable Long id,
             // @Valid
             @RequestBody ProductUpdateRequest productDTO) {
         return ResponseEntity.ok(productService.update(id, productDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable UUID id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteById(id);
         return ResponseEntity.noContent().build(); // Trả về 204 No Content công nhận đã xóa
     }
