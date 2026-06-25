@@ -1,11 +1,11 @@
-package com.example.storefront.controller;
+package com.example.storefront.controllers;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storefront.dto.ProductDetailResponse;
-import com.example.storefront.service.ProductService;
+import com.example.storefront.services.ProductService;
 
 @RestController
 @RequestMapping("/")

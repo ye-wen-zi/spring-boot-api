@@ -1,4 +1,4 @@
-package com.example.storefront.service;
+package com.example.storefront.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,15 +7,15 @@ import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
 import com.example.storefront.dto.ProductUpdateRequest;
-import com.example.storefront.entity.AssignedVariantAttribute;
-import com.example.storefront.entity.Attribute;
-import com.example.storefront.entity.AttributeValue;
-import com.example.storefront.entity.Category;
-import com.example.storefront.entity.Product;
-import com.example.storefront.entity.ProductType;
-import com.example.storefront.entity.ProductVariant;
-import com.example.storefront.exception.BadRequestException;
-import com.example.storefront.exception.ResourceNotFoundException;
+import com.example.storefront.entities.AssignedVariantAttribute;
+import com.example.storefront.entities.Attribute;
+import com.example.storefront.entities.AttributeValue;
+import com.example.storefront.entities.Category;
+import com.example.storefront.entities.Product;
+import com.example.storefront.entities.ProductType;
+import com.example.storefront.entities.ProductVariant;
+import com.example.storefront.exceptions.BadRequestException;
+import com.example.storefront.exceptions.ResourceNotFoundException;
 import com.example.storefront.mappers.ProductMapper;
 import com.example.storefront.repositories.AssignedAttributeRepository;
 import com.example.storefront.repositories.AttributeRepository;
@@ -282,6 +282,5 @@ public class ProductService {
 
     public void deleteById(Long id) {
         this.productRepository.deleteById(id);
-        ;
     }
 }

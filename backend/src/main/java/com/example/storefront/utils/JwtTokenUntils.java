@@ -6,7 +6,6 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -21,19 +20,16 @@ public class JwtTokenUntils {
     @Value("${jwt.secret:YnJlZXplZG9vcmhlaWdodGVhc3ljaXR5c3RhdGlvbnNraWxsc3RvdmVvcmFuZ2VidXI=}")
     private String secretKey;
 
-    @Value("${jwt.expiration:86400000}") // 1 day -> ms
-    private long jwtWxpiration;
-
     private SecretKey getSignKey() {
         byte[] keyBytes = Decoders.BASE64.decode(this.secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(String username, long expiration) {
         return Jwts.builder()
-                .subject(userDetails.getUsername())
+                .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + this.jwtWxpiration))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignKey())
                 .compact();
     }

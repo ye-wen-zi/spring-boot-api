@@ -12,10 +12,10 @@ import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
 import com.example.storefront.dto.ProductUpdateRequest;
-import com.example.storefront.entity.AssignedVariantAttribute;
-import com.example.storefront.entity.Category;
-import com.example.storefront.entity.Product;
-import com.example.storefront.entity.ProductVariant;
+import com.example.storefront.entities.AssignedVariantAttribute;
+import com.example.storefront.entities.Category;
+import com.example.storefront.entities.Product;
+import com.example.storefront.entities.ProductVariant;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {

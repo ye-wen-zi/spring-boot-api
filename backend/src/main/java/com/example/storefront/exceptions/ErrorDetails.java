@@ -1,6 +1,7 @@
-package com.example.storefront.exception;
+package com.example.storefront.exceptions;
 
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import lombok.Data;
 
@@ -8,10 +9,10 @@ import lombok.Data;
 public class ErrorDetails {
     private LocalDateTime timestamp;
     private int status;
-    private String error;
+    private Map<String, String> error;
     private String message;
 
-    ErrorDetails(int status, String error, String message) {
+    ErrorDetails(int status, Map<String, String> error, String message) {
         this.timestamp = LocalDateTime.now();
         this.status = status;
         this.error = error;

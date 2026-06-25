@@ -7,11 +7,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import com.example.storefront.constants.Role;
 import com.example.storefront.dto.ProductCreateRequest;
-import com.example.storefront.entity.User;
+import com.example.storefront.entities.User;
 import com.example.storefront.repositories.ProductRepository;
 import com.example.storefront.repositories.UserRepository;
-import com.example.storefront.service.ProductService;
+import com.example.storefront.services.ProductService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -65,6 +66,7 @@ public class DataInitializer implements CommandLineRunner {
                                         .lastName("Ye")
                                         .email("admin123@example.com")
                                         .password(this.passwordEncoder.encode("123456789"))
+                                        .role(Role.ADMIN)
                                         .build();
                         this.userRepository.saveAll(List.of(user, admin));
                 }

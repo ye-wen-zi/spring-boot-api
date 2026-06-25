@@ -1,10 +1,7 @@
-package com.example.storefront.entity;
+package com.example.storefront.entities;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -24,36 +21,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "product_vanriants")
-@Setter
+@Table(name = "categories")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class ProductVariant {
+public class Category {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private BigDecimal price;
+    @Column(nullable = false)
+    private String name;
 
-    private int quantity;
+    @Column(nullable = false, unique = true)
+    private String slug;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
-    @JsonBackReference
-    private Product product;
+    @JoinColumn(name = "parent_id")
+    private Category parent;
 
-    @Column(nullable = false /** , unique = true */
-    )
-    private String sku;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    // @JsonIgnore
+    private List<Category> children;
 
-    private String name; // "M / Red"
-
-    @Builder.Default
-    @Column(nullable = false)
-    private boolean trackInventory = true;
-
-    @OneToMany(mappedBy = "variant", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<AssignedVariantAttribute> assignedAttributes;
+    @OneToMany(mappedBy = "category")
+    // @JsonBackReference
+    private List<Product> products;
 }

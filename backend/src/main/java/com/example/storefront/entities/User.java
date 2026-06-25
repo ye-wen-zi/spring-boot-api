@@ -1,4 +1,4 @@
-package com.example.storefront.entity;
+package com.example.storefront.entities;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,9 +26,9 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "users")
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
@@ -50,17 +50,17 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default
-    private Role role = Role.ROLE_USER;
+    private Role role = Role.USER;
 
     @Builder.Default
     private boolean isLocked = false;
-    
+
     @Builder.Default
     private boolean isActive = true;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

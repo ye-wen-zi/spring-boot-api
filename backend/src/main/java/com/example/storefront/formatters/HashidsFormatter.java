@@ -1,10 +1,11 @@
 package com.example.storefront.formatters;
 
-import java.text.ParseException;
 import java.util.Locale;
 
 import org.hashids.Hashids;
 import org.springframework.format.Formatter;
+
+import com.example.storefront.exceptions.InvalidHashException;
 
 public class HashidsFormatter implements Formatter<Long> {
 
@@ -20,11 +21,12 @@ public class HashidsFormatter implements Formatter<Long> {
     }
 
     @Override
-    public Long parse(String text, Locale locale) throws ParseException {
+    public Long parse(String text, Locale locale) throws InvalidHashException {
         long[] decoded = this.hashids.decode(text);
 
         if (decoded.length == 0) {
-            throw new IllegalArgumentException("ID is invalid!");
+            // throw new IllegalArgumentException("ID is invalid!");
+            throw new InvalidHashException("ID is invalid!");
         }
         return decoded[0];
     }

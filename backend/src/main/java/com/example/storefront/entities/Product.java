@@ -1,4 +1,4 @@
-package com.example.storefront.entity;
+package com.example.storefront.entities;
 
 import java.math.BigDecimal;
 import java.util.List;

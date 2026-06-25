@@ -1,4 +1,4 @@
-package com.example.storefront.controller;
+package com.example.storefront.controllers;
 
 import java.net.URI;
 
@@ -17,7 +17,7 @@ import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
 import com.example.storefront.dto.ProductUpdateRequest;
-import com.example.storefront.service.ProductService;
+import com.example.storefront.services.ProductService;
 
 @RestController
 @RequestMapping("api/v1/products")
@@ -65,3 +65,4 @@ public class ProductController {
         return ResponseEntity.noContent().build(); // Trả về 204 No Content công nhận đã xóa
     }
 }
+ 

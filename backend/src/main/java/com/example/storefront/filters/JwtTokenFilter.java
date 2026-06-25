@@ -17,8 +17,10 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenUntils jwtTokenUntils;
@@ -33,29 +35,37 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (header == null || !header.startsWith("Bearer ")) {
-            filterChain.doFilter(request, response);
-            return;
+        try {
+            if (header == null || !header.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            final String token = header.substring(7).trim();
+            if (!jwtTokenUntils.validate(token)) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            // @TODO: USE REDIS BEFORE QUERY DB
+            UserDetails userDetails = this.userRepository.findByEmail(jwtTokenUntils.getUsername(token)).orElse(null);
+
+            log.info("User: {}", userDetails);
+
+            if (userDetails != null) {
+                var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
+                        userDetails.getAuthorities());
+                authentication.setDetails(
+                        new WebAuthenticationDetailsSource().buildDetails(request));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                log.info("Authenticated: {}", authentication);
+            }
+
+        } catch (Exception e) {
+            log.error("Unable to authenticate!: {}", e);
         }
-
-        final String token = header.substring(7).trim();
-        if (!jwtTokenUntils.validate(token)) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
-        // @TODO: USE REDIS BEFORE QUERY DB
-        UserDetails userDetails = this.userRepository.findByEmail(jwtTokenUntils.getUsername(token)).orElse(null);
-
-        if (userDetails != null) {
-            var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
-                    userDetails.getAuthorities());
-            authentication.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request));
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-        }
-
         filterChain.doFilter(request, response);
     }
 

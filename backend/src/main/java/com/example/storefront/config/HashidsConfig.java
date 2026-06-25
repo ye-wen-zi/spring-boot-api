@@ -14,8 +14,7 @@ public class HashidsConfig {
     @Value("${hashids.minHashLength:6}")
     private int MIN_HASH_LENGTH;
 
-    @Bean
-    public Hashids hashids() {
+    @Bean Hashids hashids() {
         return new Hashids(SALT, MIN_HASH_LENGTH);
     }
 }
