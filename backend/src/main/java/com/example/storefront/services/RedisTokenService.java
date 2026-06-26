@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 public class RedisTokenService {
     private final StringRedisTemplate stringRedisTemplate;
 
-    public String creatKey(String username) {
-        return "refresh_token:" + username;
-    }
-
     public RedisTokenService(StringRedisTemplate stringRedisTemplate) {
         this.stringRedisTemplate = stringRedisTemplate;
+    }
+
+     public String creatKey(String username) {
+        return "refresh_token:" + username;
     }
 
     public void saveRefreshToken(String username, String token, long duration, TimeUnit timeUnit) {

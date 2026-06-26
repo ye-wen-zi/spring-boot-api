@@ -10,7 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.storefront.repositories.UserRepository;
+import com.example.storefront.services.CustomUserDetailsService;
 import com.example.storefront.utils.JwtTokenUntils;
 
 import jakarta.servlet.FilterChain;
@@ -24,11 +24,11 @@ import lombok.extern.slf4j.Slf4j;
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenUntils jwtTokenUntils;
-    private final UserRepository userRepository;
+    private final CustomUserDetailsService customUserDetailsService;
 
-    public JwtTokenFilter(JwtTokenUntils jwtTokenUntils, UserRepository userRepository) {
+    public JwtTokenFilter(JwtTokenUntils jwtTokenUntils, CustomUserDetailsService customUserDetailsService) {
         this.jwtTokenUntils = jwtTokenUntils;
-        this.userRepository = userRepository;
+        this.customUserDetailsService = customUserDetailsService;
     }
 
     @Override
@@ -47,10 +47,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 return;
             }
 
-            // @TODO: USE REDIS BEFORE QUERY DB
-            UserDetails userDetails = this.userRepository.findByEmail(jwtTokenUntils.getUsername(token)).orElse(null);
-
-            log.info("User: {}", userDetails);
+            UserDetails userDetails = this.customUserDetailsService
+                    .loadUserByUsername(jwtTokenUntils.getUsername(token));
 
             if (userDetails != null) {
                 var authentication = new UsernamePasswordAuthenticationToken(userDetails, null,
@@ -60,7 +58,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
-                log.info("Authenticated: {}", authentication);
+                // log.info("Authenticated: {}", authentication);
             }
 
         } catch (Exception e) {
