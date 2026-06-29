@@ -63,11 +63,13 @@ public interface ProductMapper {
     @Mapping(target = "slug", ignore = true)
     @Mapping(target = "minPrice", ignore = true)
     @Mapping(target = "maxPrice", ignore = true)
+    @Mapping(target = "status", constant = "ACTIVE")
     Product fromCreateRequestToEntity(ProductCreateRequest dto);
-
+    
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "product", ignore = true)
     @Mapping(target = "assignedAttributes", ignore = true)
+    @Mapping(target = "status", constant = "ACTIVE")
     ProductVariant fromUpdateVariantToVariantEntity(ProductCreateRequest.Variant variant);
 
     List<Product> fromCreateRequestsToEntities(List<ProductCreateRequest> dto);

@@ -37,6 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .orElseThrow(() -> new ResourceNotFoundException("User does not exist!"));
 
         userDetails = CustomUserDetails.builder()
+                .id(user.getId())
                 .username(user.getEmail())
                 .password(user.getPassword())
                 .roles(List.of(user.getRole().name()))

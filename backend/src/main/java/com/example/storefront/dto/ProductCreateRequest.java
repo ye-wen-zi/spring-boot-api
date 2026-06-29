@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.storefront.constants.ProductStatus;
+
 public record ProductCreateRequest(
         String name,
         // String slug,
@@ -14,6 +16,7 @@ public record ProductCreateRequest(
         String thumbnail,
         // double minPrice,
         // double maxPrice,
+        List<String> images,
         String currency,
         List<Variant> variants) {
 

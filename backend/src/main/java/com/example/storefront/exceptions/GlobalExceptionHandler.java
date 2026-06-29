@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(HttpException.class)
-    public ResponseEntity<ErrorDetails> handleResourceNotfound(HttpException ex) {
+    public ResponseEntity<ErrorDetails> handleHttpExcetion(HttpException ex) {
         return new ResponseEntity<>(this.createErrorDetails(ex), ex.getStatus());
     }
 

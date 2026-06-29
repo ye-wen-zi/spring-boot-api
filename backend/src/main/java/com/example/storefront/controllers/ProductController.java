@@ -19,27 +19,32 @@ import com.example.storefront.dto.ProductResponse;
 import com.example.storefront.dto.ProductUpdateRequest;
 import com.example.storefront.services.ProductService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+
 @RestController
 @RequestMapping("api/v1/products")
+@Tag(name = "Products", description = "APIs related to product management.")
+@RequiredArgsConstructor
 public class ProductController {
 
     private final ProductService productService;
 
-    ProductController(ProductService productService) {
-        this.productService = productService;
-    }
-
     @GetMapping
+    @Operation(summary = "Get products.")
     Iterable<ProductResponse> find() {
         return this.productService.find();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Get product by hashed id.")
     ProductDetailResponse findById(@PathVariable Long id) {
         return this.productService.findProductById(id);
     }
 
     @PostMapping
+    @Operation(summary = "Create new product.")
     public ResponseEntity<ProductDetailResponse> create(/** @Valid */
     @RequestBody ProductCreateRequest productDto) {
         ProductDetailResponse product = this.productService.save(productDto);
@@ -52,6 +57,7 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "Update product by hashed id")
     public ResponseEntity<ProductDetailResponse> updateProduct(
             @PathVariable Long id,
             // @Valid
@@ -60,9 +66,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete product by hashed id")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteById(id);
         return ResponseEntity.noContent().build(); // Trả về 204 No Content công nhận đã xóa
     }
 }
- 

@@ -17,7 +17,7 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JwtTokenUntils {
 
-    @Value("${jwt.secret:YnJlZXplZG9vcmhlaWdodGVhc3ljaXR5c3RhdGlvbnNraWxsc3RvdmVvcmFuZ2VidXI=}")
+    @Value("${app.security.jwt.secret:YnJlZXplZG9vcmhlaWdodGVhc3ljaXR5c3RhdGlvbnNraWxsc3RvdmVvcmFuZ2VidXI=}")
     private String secretKey;
 
     private SecretKey getSignKey() {

@@ -2,6 +2,7 @@ package com.example.storefront.filters;
 
 import java.io.IOException;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenUntils jwtTokenUntils;
     private final CustomUserDetailsService customUserDetailsService;
 
-    public JwtTokenFilter(JwtTokenUntils jwtTokenUntils, CustomUserDetailsService customUserDetailsService) {
+    public JwtTokenFilter(JwtTokenUntils jwtTokenUntils,@Lazy CustomUserDetailsService customUserDetailsService) {
         this.jwtTokenUntils = jwtTokenUntils;
         this.customUserDetailsService = customUserDetailsService;
     }

@@ -2,6 +2,7 @@ package com.example.storefront.entities;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CustomUserDetails implements UserDetails {
 
+    private UUID id;
     private String username;
     private String password;
 

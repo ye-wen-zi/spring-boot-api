@@ -31,7 +31,14 @@ public class SecurityConfig {
     private final JwtTokenFilter jwtTokenFilter;
     private final ObjectMapper objectMapper;
 
-    SecurityConfig(JwtTokenFilter jwtTokenFilter, ObjectMapper objectMapper) {
+    private static final String[] SWAGGER_WHITELIST = {
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/docs"
+    };
+
+    public SecurityConfig(JwtTokenFilter jwtTokenFilter, ObjectMapper objectMapper) {
         this.jwtTokenFilter = jwtTokenFilter;
         this.objectMapper = objectMapper;
     }
@@ -44,6 +51,7 @@ public class SecurityConfig {
                 // Tắt CSRF bảo vệ riêng cho H2 Console để có thể submit form đăng nhập h2
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(PathRequest.toH2Console())
+                        // .ignoringRequestMatchers(SWAGGER_WHITELIST)
                         .disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .exceptionHandling(exception -> exception
@@ -63,7 +71,14 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Cho phép truy cập vào H2 Console mà không cần đăng nhập
                         .requestMatchers(PathRequest.toH2Console()).permitAll()
+                        .requestMatchers(SWAGGER_WHITELIST).permitAll()
+
                         .requestMatchers("/api/public/**").permitAll()
+
+                        .requestMatchers("/api/v1/categories/**").permitAll()
+                        .requestMatchers("/api/v1/product-types/**").permitAll()
+                        .requestMatchers("/api/v1/attributes/**").permitAll()
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole(Role.ADMIN.name())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasRole(Role.ADMIN.name())
@@ -88,7 +103,7 @@ public class SecurityConfig {
 
         config.setAllowCredentials(true);
 
-        config.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:3000"));
+        config.setAllowedOrigins(List.of("http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8080"));
 
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");

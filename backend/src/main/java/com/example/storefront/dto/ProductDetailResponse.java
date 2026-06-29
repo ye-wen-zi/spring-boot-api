@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.storefront.constants.ProductStatus;
 import com.example.storefront.serializers.HashidsSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
@@ -19,6 +20,7 @@ public record ProductDetailResponse(
                 BigDecimal minPrice,
                 BigDecimal maxPrice,
                 String thumbnail,
+                ProductStatus status,
                 List<VariantResponse> variants) {
 
         public record VariantResponse(

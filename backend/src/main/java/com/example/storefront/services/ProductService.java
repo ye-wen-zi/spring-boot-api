@@ -3,6 +3,7 @@ package com.example.storefront.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.storefront.constants.TargetType;
 import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
@@ -11,20 +12,22 @@ import com.example.storefront.entities.AssignedVariantAttribute;
 import com.example.storefront.entities.Attribute;
 import com.example.storefront.entities.AttributeValue;
 import com.example.storefront.entities.Category;
+import com.example.storefront.entities.Image;
 import com.example.storefront.entities.Product;
 import com.example.storefront.entities.ProductType;
 import com.example.storefront.entities.ProductVariant;
 import com.example.storefront.exceptions.BadRequestException;
 import com.example.storefront.exceptions.ResourceNotFoundException;
 import com.example.storefront.mappers.ProductMapper;
-import com.example.storefront.repositories.AssignedAttributeRepository;
 import com.example.storefront.repositories.AttributeRepository;
 import com.example.storefront.repositories.AttributeValueRepository;
 import com.example.storefront.repositories.CategoryRepository;
+import com.example.storefront.repositories.ImageRepository;
 import com.example.storefront.repositories.ProductRepository;
 import com.example.storefront.repositories.ProductTypeRepository;
-import com.example.storefront.repositories.ProductVariantRepository;
 import com.example.storefront.utils.SlugUtils;
+
+import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
     private final ProductMapper productMapper;
@@ -42,20 +46,7 @@ public class ProductService {
     private final ProductTypeRepository productTypeRepository;
     private final AttributeValueRepository attributeValueRepository;
     private final AttributeRepository attributeRepository;
-
-    public ProductService(ProductRepository productRepository, ProductMapper productMapper,
-            ProductTypeRepository productTypeRepository, CategoryRepository categoryRepository,
-            AttributeValueRepository attributeValueRepository,
-            AttributeRepository attributeRepository,
-            AssignedAttributeRepository assignedAttributeRepository,
-            ProductVariantRepository productVariantRepository) {
-        this.productRepository = productRepository;
-        this.productMapper = productMapper;
-        this.productTypeRepository = productTypeRepository;
-        this.categoryRepository = categoryRepository;
-        this.attributeValueRepository = attributeValueRepository;
-        this.attributeRepository = attributeRepository;
-    }
+    private final ImageRepository imageRepository;
 
     @Transactional(readOnly = true)
     public List<ProductResponse> find() {
@@ -148,6 +139,12 @@ public class ProductService {
 
         }
         this.productRepository.save(product);
+        var images = productDto.images().stream().map(img -> Image.builder()
+                .url(img)
+                .targetId(product.getId())
+                .targetType(TargetType.PRODUCT)
+                .build()).toList();
+        this.imageRepository.saveAll(images);
         return this.productMapper.fromEntityToDetailResponse(product);
     }
 
@@ -276,6 +273,25 @@ public class ProductService {
             // 5. Lưu an toàn mà không sợ lỗi ObjectDeletedException
             this.productRepository.save(product);
         }
+
+        this.imageRepository.deleteByTargetTypeAndTargetId(TargetType.PRODUCT.name(), product.getId());
+        var imageReqsSet = productDto.images().stream().map(img -> Image.builder()
+                .url(img)
+                .targetId(product.getId())
+                .targetType(TargetType.PRODUCT)
+                .build()).collect(Collectors.toSet());
+
+        var existingsImagesSet = this.imageRepository.findByTargetTypeAndTargetId(TargetType.PRODUCT.name(),
+                product.getId()).stream().collect(Collectors.toSet());
+
+        var idToDeletes = existingsImagesSet.stream().filter(img -> !imageReqsSet.contains(img)).map(Image::getId)
+                .toList();
+        var imageToSaves = imageReqsSet.stream().filter(img -> !existingsImagesSet.contains(img)).toList();
+
+        this.imageRepository.saveAll(imageToSaves);
+        this.imageRepository.deleteAllById(idToDeletes);
+
+        // TODO: DELETE IMAGE FROM CLOUND
 
         return this.productMapper.fromEntityToDetailResponse(product);
     }

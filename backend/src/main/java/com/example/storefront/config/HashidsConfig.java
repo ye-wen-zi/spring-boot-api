@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class HashidsConfig {
 
-    @Value("${hashids.salt:dfghjklbbdhjbchjbchdbjauie}")
+    @Value("${app.security.hashids.salt:dfghjklbbdhjbchjbchdbjauie}")
     private String SALT;
 
-    @Value("${hashids.minHashLength:6}")
+    @Value("${app.security.hashids.min-hash-length:6}")
     private int MIN_HASH_LENGTH;
 
     @Bean Hashids hashids() {

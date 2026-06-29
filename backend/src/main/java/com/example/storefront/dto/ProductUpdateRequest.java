@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import com.example.storefront.constants.ProductStatus;
+
 public record ProductUpdateRequest(
         String name,
         // String slug,
@@ -14,6 +16,8 @@ public record ProductUpdateRequest(
         String thumbnail,
         // double minPrice,
         // double maxPrice,
+        ProductStatus status,
+        List<String> images,
         String currency,
         List<Variant> variants) {
 
@@ -24,6 +28,7 @@ public record ProductUpdateRequest(
             String sku,
             String name,
             boolean trackInventory,
+            ProductStatus status,
             List<Attribute> attributes) {
         public record Attribute(
                 UUID assignedId,

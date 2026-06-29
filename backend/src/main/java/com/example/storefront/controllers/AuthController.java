@@ -10,12 +10,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storefront.dto.AuthLoginRequest;
 import com.example.storefront.dto.AuthLoginResponse;
+import com.example.storefront.dto.AuthSignupRequest;
 import com.example.storefront.services.AuthService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/auth")
+@Tag(name = "Authentication", description = "APIs related to authentication")
 public class AuthController {
 
     private final AuthService authService;
@@ -26,17 +30,25 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login")
     public ResponseEntity<AuthLoginResponse> login(@Valid @RequestBody AuthLoginRequest data) {
-        return authService.login(data);
+        return this.authService.login(data);
+    }
 
+    @PostMapping("/sign-up")
+    @Operation(summary = "Signup")
+    public ResponseEntity<AuthLoginResponse> signUp(@Valid @RequestBody AuthSignupRequest dto) {
+        return this.authService.signUp(dto);
     }
 
     @PostMapping("/refresh")
+    @Operation(summary = "Refresh token")
     public ResponseEntity<?> refresh(@CookieValue(REFRESH_TOKEN_COOKIE_NAME) String refrehToken) {
         return this.authService.refresh(refrehToken);
     }
 
     @GetMapping("/logout")
+    @Operation(summary = "Logout")
     public ResponseEntity<?> logout(@CookieValue(REFRESH_TOKEN_COOKIE_NAME) String refrehToken) {
         return this.authService.logout(refrehToken);
     }
