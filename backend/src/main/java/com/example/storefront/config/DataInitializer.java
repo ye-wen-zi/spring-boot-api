@@ -10,7 +10,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -35,7 +34,7 @@ import lombok.RequiredArgsConstructor;
 
 @Component
 @RequiredArgsConstructor
-@ConditionalOnProperty(name = "app.seed-data", havingValue = "true", matchIfMissing = false)
+// @ConditionalOnProperty(name = "app.seed-data", havingValue = "true", matchIfMissing = false)
 public class DataInitializer implements CommandLineRunner {
 
     private final CategoryRepository categoryRepository;
@@ -52,6 +51,12 @@ public class DataInitializer implements CommandLineRunner {
     @Override
     @Transactional
     public void run(String... args) throws Exception {
+
+        var existingCategory = this.categoryRepository.findFirstBy();
+
+        if (!existingCategory.isEmpty())
+            return;
+
         System.out.println("Initializing categories...");
         this._initCatategories();
 
@@ -181,7 +186,8 @@ public class DataInitializer implements CommandLineRunner {
     @Transactional
     private void _initProductTypes() throws IOException {
         var productTypes = this.loadJsonData("/data/product_types.json", ProductType.class);
-        var sql = this.createSql("INSERT INTO product_type (id, name, has_variants, is_shipping_required) VALUES",
+        var sql = this.createSql(
+                "INSERT INTO product_type (id, name, has_variants, is_shipping_required) VALUES",
                 List.of("id", "name", "has_variants", "is_shipping_required"),
                 productTypes.size());
 

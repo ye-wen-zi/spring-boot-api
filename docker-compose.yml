@@ -18,9 +18,15 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
-      timeout: 5s
-      retries: 5
+      # test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      # timeout: 5s
+      # retries: 5
+
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$$MYSQL_ROOT_PASSWORD || exit 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 45s
 
   redis-service:
     build:
@@ -52,7 +58,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=${SPRING_JPA_HIBERNATE_DDL_AUTO}
       - SPRING_JPA_DATABASE=${SPRING_JPA_DATABASE}
 
-      - SPRING_SQL_INIT_MODE=${SPRING_SQL_INIT_MODE}
+      # - SPRING_SQL_INIT_MODE=${SPRING_SQL_INIT_MODE}
 
       - SPRING_DOC_ENABLE_API_DOC=${SPRING_DOC_ENABLE_API_DOC}
       - SPRING_DOC_ENABLE_SWAGGER_UI=${SPRING_DOC_ENABLE_SWAGGER_UI}
@@ -63,7 +69,7 @@ services:
       - SPRING_SECURITY_REFRESH_TOKEN_EXPIRATION=${SPRING_SECURITY_REFRESH_TOKEN_EXPIRATION}
       - SPRING_SECURITY_HASH_IDS_SALT=${SPRING_SECURITY_HASH_IDS_SALT}
 
-      - APP_SEED_DATA=${APP_SEED_DATA}
+      # - APP_SEED_DATA=${APP_SEED_DATA}
     depends_on:
       mysql-service:
         condition: service_healthy
