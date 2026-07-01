@@ -88,7 +88,9 @@ This will start:
 
 ### 4. APIs
 
-Below are a few important API endpoints. **You can view the full details at [http://localhost:8080/docs](http://localhost:8080/docs)**
+* Below are a few important API endpoints. **You can view the full details at [http://localhost:8080/docs](http://localhost:8080/docs)**
+* Admin account: email `admin@example.com`, password: `A0123456789$`
+* User account: email `user@example.com`, password: `A0123456789$`
 
 #### Generation
 
