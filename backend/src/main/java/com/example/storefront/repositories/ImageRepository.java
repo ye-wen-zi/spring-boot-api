@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import com.example.storefront.constants.TargetType;
 import com.example.storefront.entities.Image;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
 
-    List<Image> findByTargetTypeAndTargetId(String targetType, Long targetId);
+    List<Image> findByTargetTypeAndTargetId(TargetType targetType, Long targetId);
 
-    List<Image> findByTargetTypeAndTargetIdIn(String targetType, Collection<Long> targetIds);
+    List<Image> findByTargetTypeAndTargetIdIn(TargetType targetType, Collection<Long> targetIds);
 
-    void deleteByTargetTypeAndTargetId(String targetType, Long targetId);
+    void deleteByTargetTypeAndTargetId(TargetType targetType, Long targetId);
 }

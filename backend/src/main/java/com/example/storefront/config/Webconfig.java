@@ -1,11 +1,13 @@
 package com.example.storefront.config;
 
+import java.util.List;
+
 import org.hashids.Hashids;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.example.storefront.formatters.HashidsFormatter;
+import com.example.storefront.resolvers.HashIdArgumentResolver;
 
 @Configuration
 public class Webconfig implements WebMvcConfigurer {
@@ -15,8 +17,13 @@ public class Webconfig implements WebMvcConfigurer {
         this.hashids = hashids;
     }
 
+    // @Override
+    // public void addFormatters(FormatterRegistry registry) {
+    // registry.addFormatterForFieldType(Long.class, new HashidsFormatter(hashids));
+    // }
+
     @Override
-    public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatterForFieldType(Long.class, new HashidsFormatter(hashids));
+    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+        resolvers.add(new HashIdArgumentResolver(hashids));
     }
 }

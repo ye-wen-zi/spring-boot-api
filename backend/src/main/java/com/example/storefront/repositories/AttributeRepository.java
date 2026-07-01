@@ -10,11 +10,18 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.example.storefront.entities.Attribute;
 
-
 public interface AttributeRepository extends JpaRepository<Attribute, UUID> {
 
     @Query("SELECT a FROM Attribute a LEFT JOIN FETCH a.values")
     List<Attribute> findWithValues();
+
+    // @Query("""
+    //         SELECT attr FROM ProductVariant v
+    //         JOIN v.assignedAttributes aa
+    //         JOIN aa.attribute attr
+    //         WHERE v.id IN :variantIds
+    //         """)
+    // List<Attribute> findAttributesByVariantIds(@Param("variantIds") List<UUID> variantIds);
 
     @EntityGraph(attributePaths = { "values" })
     Optional<Attribute> findFirstBy();

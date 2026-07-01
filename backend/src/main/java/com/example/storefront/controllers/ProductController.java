@@ -5,7 +5,6 @@ import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +16,7 @@ import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
 import com.example.storefront.dto.ProductUpdateRequest;
+import com.example.storefront.resolvers.HashId;
 import com.example.storefront.services.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get product by hashed id.")
-    ProductDetailResponse findById(@PathVariable @Schema(type = "string", example = "bPx2Md") Long id) {
+    ProductDetailResponse findById(@Schema(type = "string", example = "bPx2Md") @HashId Long id) {
         return this.productService.findProductById(id);
     }
 
@@ -60,16 +60,17 @@ public class ProductController {
     @PutMapping("/{id}")
     @Operation(summary = "Update product by hashed id")
     public ResponseEntity<ProductDetailResponse> updateProduct(
-            @PathVariable @Schema(type = "string", example = "bPx2Md") Long id,
+            @Schema(type = "string", example = "bPx2Md") @HashId Long id, // @HashId thì ko dùng @PathVariant -> ko chạy
             // @Valid
             @RequestBody ProductUpdateRequest productDTO) {
-        return ResponseEntity.ok(productService.update(id, productDTO));
+        return ResponseEntity.ok(productService.update(id, productDTO.toBuilder().id(id).build()));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete product by hashed id")
-    public ResponseEntity<Void> deleteProduct(@PathVariable @Schema(type = "string", example = "bPx2Md") Long id) {
+    public ResponseEntity<Void> deleteProduct(
+            @Schema(type = "string", example = "bPx2Md") @HashId Long id) {
         productService.deleteById(id);
-        return ResponseEntity.noContent().build(); // Trả về 204 No Content công nhận đã xóa
+        return ResponseEntity.noContent().build();
     }
 }

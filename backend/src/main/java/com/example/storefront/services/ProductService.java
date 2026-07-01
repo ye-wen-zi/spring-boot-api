@@ -35,6 +35,7 @@ import com.example.storefront.utils.SlugUtils;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class ProductService {
 
@@ -183,7 +185,7 @@ public class ProductService {
 
     @Transactional
     public ProductDetailResponse update(Long id, ProductUpdateRequest productDto) {
-        var product = this.productRepository.findById(id)
+        var product = this.productRepository.findWithCategoryAndTypeAndVariantsById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product does not exist: " + id.toString()));
 
         this.productMapper.fromUpdateRequest(productDto, product);
@@ -201,6 +203,8 @@ public class ProductService {
         Map<UUID, ProductVariant> variantsMap = product.getVariants()
                 .stream()
                 .collect(Collectors.toMap(ProductVariant::getId, v -> v));
+
+        log.info("variant map {}", variantsMap);
 
         // Danh sách để giữ lại các Variant active (cũ được update + mới được thêm)
         List<ProductVariant> updatedVariants = new ArrayList<>();
@@ -222,6 +226,8 @@ public class ProductService {
             for (var variantDto : productDto.variants()) {
                 boolean isNewVariant = variantDto.id() == null;
                 ProductVariant variant = null;
+
+                log.info("Variant:{}", variantDto);
 
                 if (!isNewVariant) {
                     if (!variantsMap.containsKey(variantDto.id())) {
@@ -307,14 +313,14 @@ public class ProductService {
             this.productRepository.save(product);
         }
 
-        this.imageRepository.deleteByTargetTypeAndTargetId(TargetType.PRODUCT.name(), product.getId());
+        this.imageRepository.deleteByTargetTypeAndTargetId(TargetType.PRODUCT, product.getId());
         var imageReqsSet = productDto.images().stream().map(img -> Image.builder()
                 .url(img)
                 .targetId(product.getId())
                 .targetType(TargetType.PRODUCT)
                 .build()).collect(Collectors.toSet());
 
-        var existingsImagesSet = this.imageRepository.findByTargetTypeAndTargetId(TargetType.PRODUCT.name(),
+        var existingsImagesSet = this.imageRepository.findByTargetTypeAndTargetId(TargetType.PRODUCT,
                 product.getId()).stream().collect(Collectors.toSet());
 
         var idToDeletes = existingsImagesSet.stream().filter(img -> !imageReqsSet.contains(img)).map(Image::getId)

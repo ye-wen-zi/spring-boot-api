@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.UUID;
 
 import com.example.storefront.constants.ProductStatus;
+import com.example.storefront.serializers.HashidDeserializer;
+import com.example.storefront.serializers.HashidsSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -15,26 +19,26 @@ import lombok.Builder;
 
 @Builder(toBuilder = true)
 public record ProductUpdateRequest(
-        @NotNull(message = "ID is required") Long id,
+                @JsonSerialize(using = HashidsSerializer.class) @JsonDeserialize(using = HashidDeserializer.class) @NotNull(message = "ID is required") Long id,
 
-        @NotBlank(message = "Product name is required and cannot be blank") @Size(max = 255, message = "Product name must not exceed 255 characters") String name,
+                @NotBlank(message = "Product name is required and cannot be blank") @Size(max = 255, message = "Product name must not exceed 255 characters") String name,
 
-        @Size(max = 2000, message = "Description must not exceed 2000 characters") String description,
+                @Size(max = 2000, message = "Description must not exceed 2000 characters") String description,
 
-        @NotNull(message = "Type ID is required") UUID typeId,
+                @NotNull(message = "Type ID is required") UUID typeId,
 
-        @NotNull(message = "Category ID is required") UUID categoryId,
+                @NotNull(message = "Category ID is required") UUID categoryId,
 
-        @PositiveOrZero(message = "Rating must be zero or a positive number") double rating,
+                @PositiveOrZero(message = "Rating must be zero or a positive number") double rating,
 
-        @NotBlank(message = "Thumbnail image URL is required") String thumbnail,
+                @NotBlank(message = "Thumbnail image URL is required") String thumbnail,
 
-        @NotNull(message = "Product status is required") ProductStatus status,
+                @NotNull(message = "Product status is required") ProductStatus status,
 
-        @NotEmpty(message = "Product must have at least one image") List<@NotBlank(message = "Image URL cannot be blank") String> images,
+                @NotEmpty(message = "Product must have at least one image") List<@NotBlank(message = "Image URL cannot be blank") String> images,
 
-        @NotBlank(message = "Currency is required") @Size(min = 3, max = 3, message = "Currency must be a 3-letter ISO code (e.g., USD, VND)") String currency,
+                @NotBlank(message = "Currency is required") @Size(min = 3, max = 3, message = "Currency must be a 3-letter ISO code (e.g., USD, VND)") String currency,
 
-        @NotEmpty(message = "Product must have at least one variant") @Valid List<ProductVariantUpdateRequest> variants) {
+                @NotEmpty(message = "Product must have at least one variant") @Valid List<ProductVariantUpdateRequest> variants) {
 
 }

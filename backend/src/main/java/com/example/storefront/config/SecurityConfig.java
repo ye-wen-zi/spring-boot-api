@@ -75,16 +75,23 @@ public class SecurityConfig {
 
                         .requestMatchers("/api/public/**").permitAll()
 
-                        .requestMatchers("/api/v1/categories/**").permitAll()
-                        .requestMatchers("/api/v1/product-types/**").permitAll()
-                        .requestMatchers("/api/v1/attributes/**").permitAll()
                         .requestMatchers("/api/v1/generation/**").permitAll()
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/categories/**").permitAll()
+                        .requestMatchers("/api/v1/categories/**").hasRole(Role.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/product-types/**").permitAll()
+                        .requestMatchers("/api/v1/product-types/**").hasRole(Role.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/attributes/**").permitAll()
+                        .requestMatchers("/api/v1/attributes/**").hasRole(Role.ADMIN.name())
+
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/products/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.PUT, "/api/v1/products/**").hasRole(Role.ADMIN.name())
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/products/**").hasRole(Role.ADMIN.name())
+                        .requestMatchers("/api/v1/products/**").hasRole(Role.ADMIN.name())
+                        
+                        .requestMatchers("/api/v1/auth/logout").authenticated()
                         .requestMatchers("/api/v1/auth/**").permitAll()
+
                         .anyRequest().authenticated())
                 // Cho phép hiển thị giao diện H2 bên trong thẻ <iframe>
                 .headers(headers -> headers.frameOptions(frame -> frame.sameOrigin()))
