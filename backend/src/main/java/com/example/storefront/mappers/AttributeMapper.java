@@ -6,16 +6,11 @@ import org.mapstruct.Mapper;
 
 import com.example.storefront.dto.AttributeResponse;
 import com.example.storefront.entities.Attribute;
-import com.example.storefront.entities.AttributeValue;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = { AttributeValueMapper.class })
 public interface AttributeMapper {
 
-    AttributeResponse fromEntityToResponse(Attribute attribute);
+    AttributeResponse toResponse(Attribute attribute);
 
-    List<AttributeResponse> fromEntityListToResponse(List<Attribute> attribute);
-
-    AttributeResponse.AttributeValueResponse fromEntityValueToResponse(AttributeValue values);
-
-    List<AttributeResponse.AttributeValueResponse> fromEntityValueListToResponse(List<AttributeValue> values);
+    List<AttributeResponse> toResponseList(List<Attribute> attribute);
 }

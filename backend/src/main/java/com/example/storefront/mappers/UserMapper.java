@@ -12,12 +12,12 @@ public interface UserMapper {
 
     @Mapping(target = "accessToken", ignore = true)
     @Mapping(target = "refreshToken", ignore = true)
-    AuthLoginResponse fromEntityToResponse(User user);
+    AuthLoginResponse toResponse(User user);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", constant = "USER")
     @Mapping(target = "isLocked", constant = "false")
     @Mapping(target = "isActive", constant = "true")
     @Mapping(target = "cart", ignore = true)
-    User fromRequestToEntity(AuthSignupRequest dto);
+    User fromRequest(AuthSignupRequest dto);
 }

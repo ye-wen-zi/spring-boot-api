@@ -3,11 +3,13 @@ package com.example.storefront.services;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.storefront.constants.ProductStatus;
 import com.example.storefront.constants.TargetType;
 import com.example.storefront.dto.ProductCreateRequest;
 import com.example.storefront.dto.ProductDetailResponse;
 import com.example.storefront.dto.ProductResponse;
 import com.example.storefront.dto.ProductUpdateRequest;
+import com.example.storefront.dto.ProductVariantCreateRequest;
 import com.example.storefront.entities.AssignedVariantAttribute;
 import com.example.storefront.entities.Attribute;
 import com.example.storefront.entities.AttributeValue;
@@ -19,14 +21,19 @@ import com.example.storefront.entities.ProductVariant;
 import com.example.storefront.exceptions.BadRequestException;
 import com.example.storefront.exceptions.ResourceNotFoundException;
 import com.example.storefront.mappers.ProductMapper;
+import com.example.storefront.mappers.ProductVariantMapper;
+import com.example.storefront.repositories.AssignedAttributeRepository;
 import com.example.storefront.repositories.AttributeRepository;
 import com.example.storefront.repositories.AttributeValueRepository;
 import com.example.storefront.repositories.CategoryRepository;
 import com.example.storefront.repositories.ImageRepository;
+import com.example.storefront.repositories.OrderItemRepository;
 import com.example.storefront.repositories.ProductRepository;
 import com.example.storefront.repositories.ProductTypeRepository;
 import com.example.storefront.utils.SlugUtils;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 
 import java.math.BigDecimal;
@@ -41,29 +48,55 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductMapper productMapper;
+    private final ProductVariantMapper productVariantMapper;
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ProductTypeRepository productTypeRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final AssignedAttributeRepository assignedAttributeRepository;
     private final AttributeRepository attributeRepository;
     private final ImageRepository imageRepository;
+    private final OrderItemRepository orderItemRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional(readOnly = true)
     public List<ProductResponse> find() {
         List<Product> products = this.productRepository.findAll();
-        return productMapper.fromEntitiesToResponses(products);
+        return productMapper.toResponseList(products);
     }
 
     @Transactional(readOnly = true)
     public List<ProductDetailResponse> getAllProductDetails() {
         List<Product> products = productRepository.findAllWithProductType();
-        return productMapper.fromEntityListToDetailResponseList(products);
+        return productMapper.toDetailResponseList(products);
     }
 
     @Transactional(readOnly = true)
     public ProductDetailResponse findProductById(Long id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found!"));
-        return productMapper.fromEntityToDetailResponse(product);
+        // Product product = productRepository.findById(id).orElseThrow(() -> new
+        // ResourceNotFoundException("Not found!"));
+        Product product = productRepository.findWithCategoryAndTypeAndVariantsById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found!"));
+
+        this.entityManager.detach(product);
+
+        var asignedAttributesMap = this.assignedAttributeRepository
+                .findWithAttributeAndValueByVariant_IdIn(
+                        product.getVariants().stream().map(ProductVariant::getId).toList())
+                .stream().collect(Collectors.groupingBy(assigned -> assigned.getVariant().getId()));
+
+        product.getVariants()
+                .forEach(v -> v.setAssignedAttributes(asignedAttributesMap.getOrDefault(v.getId(), List.of())));
+
+        if (!product.getStatus().equals(ProductStatus.ACTIVE)) {
+            throw new ResourceNotFoundException("Not found");
+        }
+
+        var productResponse = productMapper.toDetailResponse(product);
+
+        return productResponse;
     }
 
     private void assignCategory(Product product, UUID categoryId) {
@@ -101,7 +134,7 @@ public class ProductService {
     @Transactional
     public ProductDetailResponse save(ProductCreateRequest productDto) {
 
-        Product product = this.productMapper.fromCreateRequestToEntity(productDto);
+        Product product = this.productMapper.fromCreateRequest(productDto);
 
         product.setSlug(SlugUtils.toSlug(product.getName()));
         assignCategory(product, productDto.categoryId());
@@ -111,7 +144,7 @@ public class ProductService {
         linkProductToVariants(product);
 
         for (int i = 0; i < product.getVariants().size(); i++) {
-            ProductCreateRequest.Variant variantDto = productDto.variants().get(i);
+            ProductVariantCreateRequest variantDto = productDto.variants().get(i);
             ProductVariant variantEntity = product.getVariants().get(i);
 
             variantEntity.setAssignedAttributes(new ArrayList<>());
@@ -145,7 +178,7 @@ public class ProductService {
                 .targetType(TargetType.PRODUCT)
                 .build()).toList();
         this.imageRepository.saveAll(images);
-        return this.productMapper.fromEntityToDetailResponse(product);
+        return this.productMapper.toDetailResponse(product);
     }
 
     @Transactional
@@ -153,7 +186,7 @@ public class ProductService {
         var product = this.productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product does not exist: " + id.toString()));
 
-        this.productMapper.fromUpdateRequestToEntity(productDto, product);
+        this.productMapper.fromUpdateRequest(productDto, product);
 
         if (!product.getCategory().getId().equals(productDto.categoryId())) {
             assignCategory(product, productDto.categoryId());
@@ -204,7 +237,7 @@ public class ProductService {
                             .build();
                 }
 
-                this.productMapper.fromUpdateVariantToVariantEntity(variantDto, variant);
+                this.productVariantMapper.fromUpdateRequest(variantDto, variant);
 
                 Map<UUID, AssignedVariantAttribute> assignedAttributesMap = variant.getAssignedAttributes()
                         .stream().collect(Collectors.toMap(AssignedVariantAttribute::getId, attr -> attr));
@@ -293,10 +326,13 @@ public class ProductService {
 
         // TODO: DELETE IMAGE FROM CLOUND
 
-        return this.productMapper.fromEntityToDetailResponse(product);
+        return this.productMapper.toDetailResponse(product);
     }
 
     public void deleteById(Long id) {
+        if (this.orderItemRepository.existsByProductVariantProductId(id)) {
+            throw new BadRequestException("Cannot delete because the product already has orders.");
+        }
         this.productRepository.deleteById(id);
     }
 }

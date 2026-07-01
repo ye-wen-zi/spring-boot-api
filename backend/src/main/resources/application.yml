@@ -1,0 +1,69 @@
+spring:
+  application:
+    name: storefront
+
+  datasource:
+    generate-unique-name: false
+    name: storefront
+    url: ${SPRING_DATASOURCE_URL:jdbc:h2:mem:storefront;MODE=MySQL}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME:org.h2.Driver}
+    username: ${SPRING_DATASOURCE_USERNAME:sa}
+    password: ${SPRING_DATASOURCE_PASSWORD:}
+
+  jpa:
+    database: ${SPRING_JPA_DATABASE:h2}
+    # database-platform: ${SPRING_JPA_DATABASE_PLATFORM:org.hibernate.dialect.H2Dialect}
+    hibernate:
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: ${SPRING_SQL_INIT_MODE:always}
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  security:
+    filter:
+      order: 10
+
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      username: ${SPRING_DATA_REDIS_USERNAME:}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
+      # url: ${SPRING_DATA_REDIS_URL:redis://default:MatKhauBaoMatCuaBanChuanChinh123@12.34.56.78:6379}
+server:
+  error:
+    include-message: always
+    include-binding-errors: always
+
+app:
+  security:
+    secure-cookie: ${SPRING_SECURITY_SECURE_COOKIE:false}
+    jwt:
+      secret: ${SPRING_SECURITY_JWT_SECRET:YnJlZXplZG9vcmhlaWdodGVhc3ljaXR5c3RhdGlvbnNraWxsc3RvdmVvcmFuZ2VidXI=}
+      refresh-token-expiration: ${SPRING_SECURITY_ACCESS_TOKEN_EXPIRATION:86400000}
+      access-token-expiration: ${SPRING_SECURITY_REFRESH_TOKEN_EXPIRATION:900000}
+    hashids:
+      salt: ${SPRING_SECURITY_HASH_IDS_SALT:asdfhjklcvbnmertyuiopfghjkcvbnmdHJjgj}
+      min-hash-length: 6
+  seed-data: ${APP_SEED_DATA:false}
+
+# Cấu hình Open API / Swagger
+springdoc:
+  swagger-ui:
+    path: /docs
+    enabled: ${SPRING_DOC_ENABLE_API_DOC:true}
+  api-docs:
+    enabled: ${SPRING_DOC_ENABLE_SWAGGER_UI:true}
+  use-fully-qualified-name:
+    model-converter: true

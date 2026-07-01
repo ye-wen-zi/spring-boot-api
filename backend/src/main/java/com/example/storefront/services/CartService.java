@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.example.storefront.dto.CartItemRequest;
+import com.example.storefront.dto.CartItemCreateRequest;
 import com.example.storefront.entities.Cart;
 import com.example.storefront.entities.CartItem;
 import com.example.storefront.entities.ProductVariant;
@@ -32,7 +32,7 @@ public class CartService {
     }
 
     @Transactional
-    public List<CartItem> addItemsToCart(List<CartItemRequest> dto, UUID userId) {
+    public List<CartItem> addItemsToCart(List<CartItemCreateRequest> dto, UUID userId) {
         var cart = this.findByUserIdWithItems(userId);
 
         var existingItemsMap = cart.getItems().stream()
@@ -43,7 +43,7 @@ public class CartService {
                 ));
 
         var variantIds = dto.stream()
-                .map(CartItemRequest::variantId)
+                .map(CartItemCreateRequest::variantId)
                 .distinct()
                 .toList();
 
@@ -84,6 +84,7 @@ public class CartService {
 
     }
 
+    @Transactional
     public void removeItemsFromCart(Set<Long> itemIds, UUID userId) {
         var cartOption = this.cartRepository.findByUserId(userId);
         if (cartOption.isPresent()) {

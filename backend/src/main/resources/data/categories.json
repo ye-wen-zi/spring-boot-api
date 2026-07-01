@@ -1,0 +1,42 @@
+[
+    {
+        "id": "e3b0c442-98fc-4c14-951c-715742f3f157",
+        "name": "Điện thoại & Máy tính bảng",
+        "slug": "dien-thoai-may-tinh-bang"
+    },
+    {
+        "id": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+        "name": "Laptop & Thiết bị IT",
+        "slug": "laptop-thiet-bi-it"
+    },
+    {
+        "id": "a1d4f201-3162-4b2a-bc82-0123456789ab",
+        "name": "Thời trang Nam",
+        "slug": "thoi-trang-nam"
+    },
+    {
+        "id": "b8f5e312-5273-4c3b-ad91-112233445566",
+        "name": "Thời trang Nữ",
+        "slug": "thoi-trang-nu"
+    },
+    {
+        "id": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+        "name": "Điện gia dụng",
+        "slug": "dien-gia-dung"
+    },
+    {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "name": "Sức khỏe & Sắc đẹp",
+        "slug": "suc-khoe-sac-dep"
+    },
+    {
+        "id": "550e8400-e29b-41d4-a716-446655440000",
+        "name": "Nhà cửa & Đời sống",
+        "slug": "nha-cua-doi-song"
+    },
+    {
+        "id": "9b1deb4d-3b7d-4bad-9bdd-2b0d7b3dcb6d",
+        "name": "Thể thao & Dã ngoại",
+        "slug": "the-thao-da-ngoai"
+    }
+]

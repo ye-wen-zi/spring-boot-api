@@ -3,7 +3,10 @@ package com.example.storefront.dto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Builder;
 
+
+@Builder(toBuilder = true)
 public record AuthSignupRequest(
         @NotBlank(message = "First name cannot be blank") String firstName,
         @NotBlank(message = "Last name cannot be blank") String lastName,

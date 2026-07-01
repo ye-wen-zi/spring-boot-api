@@ -35,13 +35,13 @@ public class CategoryController {
     @GetMapping
     @Operation(summary = "Get product's type.")
     public List<CategoryResponse> find() {
-        return this.categoryMapper.fromEntityListToResponseList(this.categoryService.find());
+        return this.categoryMapper.toResponseList(this.categoryService.find());
     }
 
     @PostMapping
     @Operation(summary = "Create new product's type.")
     public CategoryResponse create(@Valid @RequestBody CategoryCreateRequest dto) {
-        return this.categoryMapper.fromEntityToResponse(this.categoryService.create(dto));
+        return this.categoryMapper.toResponse(this.categoryService.create(dto));
     }
 
     @DeleteMapping("/{id}")

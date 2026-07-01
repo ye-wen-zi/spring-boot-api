@@ -12,46 +12,50 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.storefront.dto.AttributeCreateRequest;
 import com.example.storefront.dto.AttributeResponse;
+import com.example.storefront.dto.AttributeValueResponse;
 import com.example.storefront.mappers.AttributeMapper;
+import com.example.storefront.mappers.AttributeValueMapper;
 import com.example.storefront.services.AttributeService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/attributes")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Product's attributes", description = "APIs related to product's attributes management.")
 public class AttributeController {
     private final AttributeService attributeService;
     private final AttributeMapper attributeMapper;
+    private final AttributeValueMapper attributeValueMapper;
 
     @GetMapping
     @Operation(summary = "Get attributes")
     public List<AttributeResponse> find() {
         var attributes = this.attributeService.find();
 
-        return this.attributeMapper.fromEntityListToResponse(attributes);
+        return this.attributeMapper.toResponseList(attributes);
     }
 
     @Operation(summary = "Create new attribute with values")
     @PostMapping
     public AttributeResponse create(@Valid @RequestBody AttributeCreateRequest dto) {
         var attribute = this.attributeService.create(dto);
-        return this.attributeMapper.fromEntityToResponse(attribute);
+        return this.attributeMapper.toResponse(attribute);
     }
 
     @PostMapping("/values/{id}")
     @Operation(summary = "Add new values to exsiting attribute.")
-    public List<AttributeResponse.AttributeValueResponse> addValues(@RequestBody List<String> values,
+    public List<AttributeValueResponse> addValues(@RequestBody List<String> values,
             @PathVariable(name = "id") UUID attributeId) {
         var savedValues = this.attributeService.addValues(values, attributeId);
 
-        return this.attributeMapper.fromEntityValueListToResponse(savedValues);
+        return this.attributeValueMapper.toResponseList(savedValues);
     }
 
     @DeleteMapping("/values")

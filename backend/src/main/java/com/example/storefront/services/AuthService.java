@@ -66,7 +66,7 @@ public class AuthService {
                         throw new BadRequestException("The email is already in use.");
                 }
 
-                User newUser = this.userMapper.fromRequestToEntity(dto);
+                User newUser = this.userMapper.fromRequest(dto);
                 newUser.setPassword(this.passwordEncoder.encode(newUser.getPassword()));
 
                 User savedUser = this.userRepository.save(newUser);
@@ -85,7 +85,7 @@ public class AuthService {
         private ResponseEntity<AuthLoginResponse> _login(AuthLoginRequest authInfo, User user) {
                 String errorMessage = "Invalid credentials!";
                 if (passwordEncoder.matches(authInfo.password(), user.getPassword())) {
-                        AuthLoginResponse authLoginResponse = userMapper.fromEntityToResponse(user);
+                        AuthLoginResponse authLoginResponse = userMapper.toResponse(user);
 
                         String accessToken = jwtTokenUntils.generateToken(user.getEmail(), ACCESS_TOKEN_EXPIRATION);
                         String refeshToken = jwtTokenUntils.generateToken(user.getEmail(), REFRESH_TOKEN_EXPIRATION);

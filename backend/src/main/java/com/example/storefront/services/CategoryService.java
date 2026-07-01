@@ -7,18 +7,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.example.storefront.repositories.CategoryRepository;
+import com.example.storefront.repositories.ProductRepository;
 import com.example.storefront.utils.SlugUtils;
 
 import lombok.AllArgsConstructor;
 
 import com.example.storefront.dto.CategoryCreateRequest;
 import com.example.storefront.entities.Category;
+import com.example.storefront.exceptions.BadRequestException;
 import com.example.storefront.exceptions.ConflictResourceException;
 
 @Service
 @AllArgsConstructor
 public class CategoryService {
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
     public List<Category> find() {
         return this.categoryRepository.findAll();
@@ -37,6 +40,9 @@ public class CategoryService {
     }
 
     public void deleteById(UUID id) {
+        if (this.productRepository.existsByCategoryId(id)) {
+            throw new BadRequestException("Cannot delete because the category already has products.");
+        }
         this.categoryRepository.deleteById(id);
     }
 }

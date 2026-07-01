@@ -10,7 +10,7 @@ import com.example.storefront.entities.ProductType;
 @Mapper(componentModel = "spring")
 public interface ProductTypeMapper {
     
-    ProductTypeResponse fromEntityToResponse(ProductType productType);
+    ProductTypeResponse toResponse(ProductType productType);
 
-    List<ProductTypeResponse> fromEntityListToResponse(List<ProductType> productType);
+    List<ProductTypeResponse> toResponseList(List<ProductType> productType);
 }

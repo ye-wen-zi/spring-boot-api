@@ -7,14 +7,17 @@ import org.springframework.stereotype.Service;
 
 import com.example.storefront.dto.ProductTypeCreateRequest;
 import com.example.storefront.entities.ProductType;
+import com.example.storefront.exceptions.BadRequestException;
+import com.example.storefront.repositories.ProductRepository;
 import com.example.storefront.repositories.ProductTypeRepository;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductTypeService {
     private final ProductTypeRepository productTypeRepository;
+    private final ProductRepository productRepository;
 
     public List<ProductType> find() {
         return this.productTypeRepository.findAll();
@@ -28,6 +31,9 @@ public class ProductTypeService {
     }
 
     public void delete(UUID id) {
+        if (this.productRepository.existsByProductTypeId(id)) {
+            throw new BadRequestException("Cannot delete because the type already has products.");
+        }
         this.productTypeRepository.deleteById(id);
     }
 }

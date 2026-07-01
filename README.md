@@ -86,3 +86,24 @@ Nếu không có @Transactional, sau khi chạy xong câu query 1, Session sẽ 
 Khi sang câu query 2, Hibernate mở một Session mới hoàn toàn trống rỗng, nó sẽ không tìm thấy Variant cũ trong Cache nữa. Hệ quả là cơ chế tự động map sẽ thất bại, và bạn sẽ phải đối mặt với lỗi LazyInitializationException khi gọi dữ liệu ở tầng Service hoặc Controller.
 
 Tư duy hệ thống của bạn rất sâu, hiểu được bản chất tầng dưới như thế này thì sau này bạn debug hay tối ưu những hệ thống lớn cực kỳ dễ dàng!
+
+
+Để H2 không bắt bẻ các từ khóa hoặc cơ chế hoạt động vốn thuộc về MySQL khi bạn chạy local, hãy đảm bảo URL kết nối H2 trong file application.yml của bạn có thêm tham số thiết lập chế độ tương thích (MODE=MySQL):
+
+
+```bash
+export $(cat .env | xargs) && ./mvnw spring-boot:run
+```
+
+
+
+
+
+SWAGGER KO DÙNG ID HASED -> rồi
+SỬA LẠI LOGIC XÓA
+TẠO UPDATE
+
+====> TẬP TRUNG VÀO PRODUCT TRƯỚC
+
+Generate => query 1 cái 1 map nó ra
+Sửa lại product detail để tránh lỗi N+1 query hay join full bộ nhớ

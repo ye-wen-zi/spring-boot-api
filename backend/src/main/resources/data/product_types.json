@@ -1,0 +1,22 @@
+[
+  {
+    "id": "3c0d832e-4b6a-4b6d-9d43-1e96a4b11123",
+    "name": "Sản phẩm vật lý"
+  },
+  {
+    "id": "7fa12bc3-e892-4911-a83d-9d32b509ef44",
+    "name": "Sản phẩm số (Digital)"
+  },
+  {
+    "id": "c9a82341-11b2-4d23-bd77-8321cb5a0922",
+    "name": "Dịch vụ / Voucher điện tử"
+  },
+  {
+    "id": "e21c8409-5a12-4c91-b32d-021948fc3211",
+    "name": "Sản phẩm combo / đóng gói"
+  },
+  {
+    "id": "0f1a23b4-c56d-4e7f-890a-1b2c3d4e5f6a",
+    "name": "Hàng đặt trước (Pre-order)"
+  }
+]

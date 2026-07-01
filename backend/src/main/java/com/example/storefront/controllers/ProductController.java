@@ -20,6 +20,7 @@ import com.example.storefront.dto.ProductUpdateRequest;
 import com.example.storefront.services.ProductService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -39,7 +40,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Get product by hashed id.")
-    ProductDetailResponse findById(@PathVariable Long id) {
+    ProductDetailResponse findById(@PathVariable @Schema(type = "string", example = "bPx2Md") Long id) {
         return this.productService.findProductById(id);
     }
 
@@ -59,7 +60,7 @@ public class ProductController {
     @PutMapping("/{id}")
     @Operation(summary = "Update product by hashed id")
     public ResponseEntity<ProductDetailResponse> updateProduct(
-            @PathVariable Long id,
+            @PathVariable @Schema(type = "string", example = "bPx2Md") Long id,
             // @Valid
             @RequestBody ProductUpdateRequest productDTO) {
         return ResponseEntity.ok(productService.update(id, productDTO));
@@ -67,7 +68,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete product by hashed id")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable @Schema(type = "string", example = "bPx2Md") Long id) {
         productService.deleteById(id);
         return ResponseEntity.noContent().build(); // Trả về 204 No Content công nhận đã xóa
     }

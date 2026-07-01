@@ -9,8 +9,8 @@ import com.example.storefront.entities.Category;
 
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
-    
-    CategoryResponse fromEntityToResponse(Category category);
 
-    List<CategoryResponse> fromEntityListToResponseList(List<Category> categories);
+    CategoryResponse toResponse(Category category);
+
+    List<CategoryResponse> toResponseList(List<Category> categories);
 }

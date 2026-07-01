@@ -16,13 +16,14 @@ import com.example.storefront.services.ProductTypeService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/product-types")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Tag(name = "Product's types", description = "APIs related to product's types management.")
 public class ProductTypeController {
     private final ProductTypeService productTypeService;
@@ -31,14 +32,14 @@ public class ProductTypeController {
     @GetMapping
     @Operation(summary = "Get product's types")
     public List<ProductTypeResponse> find() {
-        return this.productTypeMapper.fromEntityListToResponse(
+        return this.productTypeMapper.toResponseList(
                 this.productTypeService.find());
     }
 
     @PostMapping()
     @Operation(summary = "Create new product's type")
     public ProductTypeResponse create(@RequestBody ProductTypeCreateRequest dto) {
-        return this.productTypeMapper.fromEntityToResponse(
+        return this.productTypeMapper.toResponse(
                 this.productTypeService.create(dto));
     }
 
